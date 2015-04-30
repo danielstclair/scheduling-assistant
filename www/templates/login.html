@@ -1,0 +1,13 @@
+<div class="login-view">
+	<h1>login</h1>
+
+	<a ui-sref="home">home</a>
+	<a ui-sref="register">register</a>
+	<div class="login-form">
+		<input class="email" ng-model="email" ng-change="emailCheck(email)" type="text" placeholder="enter email...">
+		<p class="errors" ng-show="emailError">must be an email address =)</p>
+		<input class="password" ng-model="password" ng-change="passwordCheck(password)" type="text" placeholder="enter password...">
+		<p class="errors" ng-show="passwordError">password does not match =(</p>
+		<button ng-click="loginSubmit()">submit</button>
+	</div>
+</div>

@@ -1,0 +1,61 @@
+/**
+ * importer.less
+ *
+ * By default, new Sails projects are configured to compile this file
+ * from LESS to CSS.  Unlike CSS files, LESS files are not compiled and
+ * included automatically unless they are imported below.
+ *
+ * The LESS files imported below are compiled and included in the order
+ * they are listed.  Mixins, variables, etc. should be imported first
+ * so that they can be accessed by subsequent LESS stylesheets.
+ *
+ * (Just like the rest of the asset pipeline bundled in Sails, you can
+ * always omit, customize, or replace this behavior with SASS, SCSS,
+ * or any other Grunt tasks you like.)
+ */
+
+
+
+// For example:
+//
+// @import 'variables/colors.scss';
+// @import 'mixins/foo.scss';
+// @import 'mixins/bar.scss';
+// @import 'mixins/baz.scss';
+//
+// @import 'styleguide.scss';
+// @import 'pages/login.scss';
+// @import 'pages/signup.scss';
+//
+// etc.
+
+body{
+	background-color: #222;
+	text-align: center;
+}
+
+h1, h2, h3, h4, h5, h6{
+	font-family: 'Futura';
+	color: #ffe;
+}
+
+a, p, input{
+	font-family: 'Helvetica';
+	text-decoration: none;
+}
+
+a{
+		font-weight: 100;
+		color: #559;}
+	a:nth-of-type(1){
+		padding-right: 40px;}
+	a:nth-of-type(2){
+		padding-left: 40px;}
+
+.errors{
+	color: white;
+}
+
+@import 'homepage.scss';
+@import 'login.scss';
+@import 'register.scss';

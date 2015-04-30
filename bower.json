@@ -1,0 +1,21 @@
+{
+  "name": "sails-template",
+  "version": "0.0.0",
+  "authors": [
+    "Aaron Larner <anlarner@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "validator-js": "~3.33.0",
+    "jquery": "~2.1.3",
+    "ionicons": "~2.0.1",
+    "underscore": "~1.8.3"
+  }
+}

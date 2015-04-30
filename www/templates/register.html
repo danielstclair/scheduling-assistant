@@ -1,0 +1,15 @@
+<div class="register-view">
+	<h1>register</h1>
+
+	<a ui-sref="login">login</a>
+	<a ui-sref="home">home</a>
+	<div class="login-form">
+		<input class="regUser" ng-model="regUser" ng-change="regUserCheck(regUser)" type="text" placeholder="enter user name...">
+		<p class="errors" ng-show="userError">can't be left blank =(</p>
+		<input class="regEmail" ng-model="regEmail" ng-change="regEmailCheck(regEmail)" type="text" placeholder="enter email...">
+		<p class="errors" ng-show="emailError">must be an email address =)</p>
+		<input class="regPassword" ng-model="regPassword" ng-change="regPasswordCheck(regPassword)" type="text" placeholder="enter password...">
+		<p class="errors" ng-show="passwordError">password does not match =(</p>
+		<button ng-click="regSubmit()">submit</button>
+	</div>
+</div>

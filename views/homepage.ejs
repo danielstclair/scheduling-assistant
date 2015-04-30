@@ -1,0 +1,69 @@
+<div>
+	<header>
+		<h1>Help Search</h1>
+		<nav>
+			<a href="#" class="ions ion-navicon"></a>
+			<a href="#" class="ions ion-close"></a>
+			<div class="clear-float"></div>
+			<a href="#home" class="homeNav navs">home</a>
+			<a href="#login" class="loginNav navs">login</a>
+			<a href="#register" class="registerNav navs">register</a>
+			<a href="#appointments" class="appointNav navs">Schedule an Appointment</a>
+			<a href="#" id="logout" class="logoutNav navs">logout</a>
+		</nav>
+	</header>
+	<main id="app">
+		<section class="page-view landing-view" id="landing-view">
+			<h3>Welcome!</h3>
+			<p>Thank you for visiting Help Search. This is a service for you to schedule and keep track of all appointments with your social worker about any help you might need.</p> <p>If you haven't already, go ahead and register for a free account. If you already have an account go ahead and log in with your email and password.</p>
+		</section>
+		<section class="page-view home-view" id="home-view">
+			<h3>Home</h3>
+			<ul id="shown-appointments"></ul>
+		</section>
+		<section class="page-view logreg-view" id="login-view">
+			<h3>Login</h3>
+			<form>
+				<input id="loginEmail" type="email" placeholder="Email">
+				<input id="loginPassword" type="password" placeholder="Password">
+				<button id="loginSubmit">Login</button>
+			</form>
+		</section>
+		<section class="page-view logreg-view" id="register-view">
+			<h3>Create an Account</h3>
+			<form>
+				<input id="registerEmail" type="email" placeholder="Email">
+				<input id="registerPassword" type="password" placeholder="password">
+				<button id="registerSubmit">Submit</button>
+			</form>
+		</section>
+		<section class="page-view appointment-view" id="appointment-view">
+			<h3>Schedule an Appointment</h3>
+			<form>
+				<textarea placeholder="Description" id="description"></textarea><br>
+				<div>
+					<span>When:</span>
+					<input type="date" id="startDate"><br>
+				</div>
+				<div>
+					<span>From:</span>
+					<select id="start-time"></select>
+					<span>To:</span>
+					<select id="end-time"></select>
+				</div>
+				<div>
+					<span>Type of Service:</span>
+					<select id="service-type">
+						<option value="Health" class="services">Health</option>
+						<option value="Food" class="services">Food</option>
+						<option value="Housing" class="services">Housing</option>
+						<option value="Medical" class="services">Medical</option>
+						<option value="Work Training" class="services">Work Training</option>
+					</select>
+				</div>
+				
+				<button type="Submit" id="submit">Create Appointment</button>
+			</form>
+		</section>
+	</main>
+</div>
