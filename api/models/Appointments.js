@@ -28,7 +28,7 @@ module.exports = {
   		required: true,
   		unique: false
   	},
-    date: {
+    dates: {
       type: 'string',
       required: true,
       unique: false

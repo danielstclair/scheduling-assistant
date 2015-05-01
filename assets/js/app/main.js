@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	// basic page logic
 	(function (){
 		$('.ion-close').hide();
 		$('.navs').hide();
@@ -21,10 +22,10 @@ $(document).ready(function(){
 		$(this).hide();
 		$('.ion-close').show();
 		$('.navs').show();
-	})
+	});
 	$('.ion-close').click(function(){
 		hideNav();
-	})
+	});
 	function hideNav(){
 		$('.ion-close').hide();
 		$('.ion-navicon').show();
@@ -44,7 +45,7 @@ $(document).ready(function(){
 	});
 	$('.navs').click(function(){
 		hideNav();
-	})
+	});
 	function landingIsShown(){
 		$('.page-view').hide();
 		$('#landing-view').show();
@@ -74,19 +75,44 @@ $(document).ready(function(){
 		$('.navs').removeClass('selected');
 		$('.appointNav').addClass('selected');
 	}
+	function resetVal(){
+		$('#registerEmail').val('');
+		$('#registerPassword').val('');
+		$('#loginEmail').val('');
+		$('#loginPassword').val('');
+		$('#description').val();
+		$('#startDate').val('');
+		$('#start-time').val('');
+		$('#end-time').val('');
+	}
 
 
+
+// login and registration logic
 	var users = null;
 	function getUser(){
 		$.get('/auth/user', function(data){
 			// console.log(data);
 		}).done(function(user){
+			console.log(user);
 			users = user;
-			console.log(users);
-			homeIsShown();
-			getAppointments(user.id);
+			if(user.username.indexOf('@hf.com') > -1){
+				homeIsShown();
+				getAuthUser(user);
+			} else{
+				homeIsShown();
+				getUserAppointments(user.id);
+			}
 		}).fail(function(err){
 			landingIsShown();
+		});
+	}
+	function getAuthUser(authUser){
+		$.get('/authUsers', function(data){
+			var currentAuth = _.filter(data, function(a){
+				return a.id === authUser.id;
+			});
+			getAuthUserAppointments(currentAuth[0]);
 		});
 	}
 	getUser();
@@ -119,6 +145,7 @@ $(document).ready(function(){
 		login();
 	});
 	function register(){
+		var authId = null;
 		var regForm = {
 			email: $('#registerEmail').val(),
 			password: $('#registerPassword').val()
@@ -181,88 +208,27 @@ $(document).ready(function(){
 	$('#logout').click(function(){
 		logout();
 	});
-	function resetVal(){
-		$('#registerEmail').val('');
-		$('#registerPassword').val('');
-		$('#loginEmail').val('');
-		$('#loginPassword').val('');
-		$('#description').val();
-		$('#startDate').val('');
-		$('#start-time').val('');
-		$('#end-time').val('');
-	}
-	function getAppointments(users){
-		console.log(users);
-		$.get('/appointments', function(data){
-			console.log(data);
-			var uniqueData = _.filter(data, function(a){
-				return a.user.id === users;
-			});
-			console.log(uniqueData);
-			for(var i = 0; i <= uniqueData.length; i++){
-				var appointmentTemplate = '<li><div class="appointment-date"><span>You have an appointment on ' + uniqueData[i].date + ' from ' + uniqueData[i].startAt + ' to ' + uniqueData[i].endAt + '.</span></div><div class="appointment-description"><p>Description: ' + uniqueData[i].name  + '</p><p>Service: ' + uniqueData[i].service + '</p></div></li>';
-				$('#shown-appointments').append(appointmentTemplate);
-			}
-		});
-	}
-	function getNewAppointment(app){
-		var appointmentTemplate = '<li><span>You have an appointment on ' + app.date + ' from ' + app.startAt + ' to ' + app.endAt + '.</span><p>Description: ' + app.name  + '</p><p>Service: ' + app.service + '</p></li>';
-		$('#shown-appointments').append(appointmentTemplate);
-	}
-	function getAuthUserAppointments(user){
-		if(user.username === 'daniel@hf.com'){
-			console.log('Daniel is logged in');
-			$.get('/appointments', function(collection){
-				console.log(collection);
-				var filteredCollection = _.filter(collection, function(a){
-					return a.authID === '1';
-				});
-				console.log(filteredCollection)
-			})
-		} else if(user.username === 'andrea@hf.com'){
-			console.log('Andrea is logged in');
-			$.get('/appointments', function(collection){
-				console.log(collection);
-				var filteredCollection = _.filter(collection, function(a){
-					return a.authID === '2';
-				});
-				console.log(filteredCollection)
-			})
-		} else if(user.username === 'hall@hf.com'){
-			console.log('Hall is logged in');
-			$.get('/appointments', function(collection){
-				console.log(collection);
-				var filteredCollection = _.filter(collection, function(a){
-					return a.authID === '3';
-				});
-				console.log(filteredCollection)
-			})
-		} else if(user.username === 'oates@hf.com'){
-			console.log('Oates is logged in');
-			$.get('/appointments', function(collection){
-				console.log(collection);
-				var filteredCollection = _.filter(collection, function(a){
-					return a.authID === '4';
-				});
-				console.log(filteredCollection)
-			})
-		} else {
-			console.log("We've recently hired a temp and they are logged in");
-			$.get('/appointments', function(collection){
-				console.log(collection);
-				var filteredCollection = _.filter(collection, function(a){
-					return a.authID === '5';
-				});
-				console.log(filteredCollection)
-			})
-		}
-	}
+
+
+
+
+// Appointment logic
+	$('#submit').click(function(){
+		var appDeets = {
+			desc: $('#description').val(),
+			dates: $('#startDate').val(),
+			startAt: $('#start-time').val(),
+			endAt: $('#end-time').val(),
+			service: $('#service-type option:selected').text()
+		};
+		postAppointments(appDeets);
+	});
 	function postAppointments(a){
 		var authId = null;
-		if (a.desc === '' || a.service === '' || a.startAt === '' || a.endAt === '' || a.date === '') {
+		if (a.desc === '' || a.service === '' || a.startAt === '' || a.endAt === '' || a.dates === '') {
 			console.log('error');
 			return;
-		};
+		}
 		if(a.service === "Health"){
 			authId = '1';
 		} else if(a.service === 'Food'){
@@ -283,29 +249,55 @@ $(document).ready(function(){
 				service: a.service,
 				startAt: a.startAt,
 				endAt: a.endAt,
-				date: a.date,
+				dates: a.dates,
 				user: users
 			}
 		}).done(function(data){
 			authID = null;
 			resetVal();
 			homeIsShown();
-			getNewAppointment(data);
+			renderNewAppointment(data);
 			console.log(data);
 		}).error(function(err){
 			console.log(err);
 		});
 	}
+	function getUserAppointments(users){
+		console.log(users);
+		$.get('/appointments', function(data){
+			console.log(data);
+			var uniqueData = _.filter(data, function(a){
+				return a.user.id === users;
+			});
+			console.log(uniqueData);
+			renderAppointments(uniqueData);
+		});
+	}
+	function getAuthUserAppointments(user){
+		console.log(user);
+		$.get('/appointments', function(collection){
+			console.log(collection);
+			var filteredCollection = _.filter(collection, function(a){
+				return a.authID === user.authID;
+			});
+			console.log(filteredCollection);
+			renderAppointments(filteredCollection);
+		});
+	}
+	function renderNewAppointment(app){
+		var appointmentTemplate = '<li><div class="appointment-date"><span>You have an appointment on ' + app.dates + ' from ' + app.startAt + ' to ' + app.endAt + '.</span></div><div class="appointment-description"><p>Description: ' + app.name  + '</p><p>Service: ' + app.service + '</p></div></li>';
+		$('#shown-appointments').append(appointmentTemplate);
+	}
+	function renderAppointments(app){
+		console.log(app);
+		var i = app.length;
+		while(i--){
+			console.log(app[i]);
+			var appointmentTemplate = '<li><div class="appointment-date"><span>You have an appointment on ' + app[i].dates + ' from ' + app[i].startAt + ' to ' + app[i].endAt + '.</span></div><div class="appointment-description"><p>Description: ' + app[i].name  + '</p><p>Service: ' + app[i].service + '</p></div></li>';
+			$('#shown-appointments').append(appointmentTemplate);
+		}
+	}
 
 
-	$('#submit').click(function(){
-		var appDeets = {
-			desc: $('#description').val(),
-			date: $('#startDate').val(),
-			startAt: $('#start-time').val(),
-			endAt: $('#end-time').val(),
-			service: $('#service-type option:selected').text()
-		};
-		postAppointments(appDeets);
-	});
+
 });

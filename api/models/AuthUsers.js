@@ -10,7 +10,7 @@ module.exports = {
   attributes: {
   	username  : { type: 'string', unique: true },
     email     : { type: 'email',  unique: true },
-    authID: {type: 'string', unique: false},
+    authID: {type: 'string', unique: false, required: false},
     appointments : { model: 'Appointments', required: false}
   }
 };

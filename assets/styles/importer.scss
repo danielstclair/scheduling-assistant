@@ -29,14 +29,17 @@
 //
 // etc.
 
+$blue: #079DED;
+$white: #F2F2F2;
+$black: #222;
+$trans: rgba(0,0,0,0);
+
 body{
-	background-color: #F2F2F2;
-	// text-align: center;
-}
+	background-color: $white;}
 
 h1, h2, h3, h4, h5, h6{
 	font-family: 'Futura';
-	color: #079DED;}
+	color: $blue;}
 
 a, p, input, span, button, select{
 	font-family: 'Helvetica';
@@ -52,15 +55,15 @@ header{
 }
 
 nav{
-	border-bottom: 1px solid #222;
+	border-bottom: 1px solid $black;
 	padding-bottom: .5em;
 	text-align: center;
 	a{
 		display: block;
 		font-weight: 100;
-		color: #222;}
+		color: $black;}
 	a:hover, a:active{
-		color: #079DED;}
+		color: $blue;}
 	.ions{
 		float: right;}
 	.ion-navicon{
@@ -70,12 +73,10 @@ nav{
 		margin-top: .2em;
 		margin-right: 2.7em;}
 	.ion-close:hover, .ion-close:active{
-		color: #F03C3C;
-	}
+		color: #F03C3C;}
 	.navs{
 		margin-top: 1em;
-		margin-bottom: 1em;
-	}
+		margin-bottom: 1em;}
 }
 
 .clear-float{
@@ -85,15 +86,14 @@ nav{
 .home-view, .logreg-view, .appointment-view{
 	margin: 0 auto;
 	max-width: 48.75em;
-	text-align: center;
-}
+	text-align: center;}
 
 
 .errors{
 	color: white;}
 
 .selected{
-	color: #079DED;}
+	color: $blue;}
 
 main{
 	margin-top: 2em;}

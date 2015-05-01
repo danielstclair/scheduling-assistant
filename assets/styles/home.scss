@@ -7,7 +7,7 @@
 		margin-bottom: 2em;
 		div{
 			padding: 1em;
-			border: 1px solid #222;
+			border: 1px solid $black;
 			max-width: 560px;
 			margin: 0 auto;}
 		.appointment-date{
@@ -15,8 +15,8 @@
 			border-bottom: none;}
 		.appointment-description{
 			border-radius: 0 0 10px 10px;
-			background-color: #222;
-			color: white;}
+			background-color: #77CBF7;
+			color: $black;}
 		p{
 			margin: 0 0 .5em 0;}
 	}
